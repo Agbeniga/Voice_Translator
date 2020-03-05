@@ -101,17 +101,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-
   trans(String text) {
     if (text != null && text.isNotEmpty) {
-    translator
-        .translate(text, from: translateFrom, to: languageCode(translatedValue))
-        .then((output) {
-      setState(() {
-        translatedText = output.toString();
+      translator
+          .translate(text,
+              from: translateFrom, to: languageCode(translatedValue))
+          .then((output) {
+        setState(() {
+          translatedText = output.toString();
+        });
       });
-      // print(out);
-    });
     }
   }
 
@@ -185,9 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: (() {
                           setState(() {
                             out = _controller.text;
-                            print(out);
+
                             trans(out);
-                            print(out);
                           });
                         }),
                       ),
@@ -225,6 +223,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     if (isAvailable && !isListening) {
                       _speechRecognition.listen(locale: localeEncoding());
+                      setTtsLanguage();
+
                       _speak(translatedText);
                     }
                   }),
@@ -235,6 +235,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       out = _controller.text;
 
                       trans(out);
+                      setTtsLanguage();
                       _speak(translatedText);
                     });
                   }),
